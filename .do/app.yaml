@@ -1,0 +1,53 @@
+# DigitalOcean App Platform spec. Apply with:
+#   doctl apps update <app-id> --spec .do/app.yaml
+# or paste into Settings → App Spec in the dashboard.
+# Each project builds from its own repo and redeploys on push to main.
+name: kianmayne-co-uk
+region: lon
+domains:
+  - domain: kianmayne.co.uk
+    type: PRIMARY
+
+static_sites:
+  - name: website
+    github:
+      repo: KMayne/kianmayne.co.uk
+      branch: main
+      deploy_on_push: true
+    # Only public/ is served; .do/ and scripts/ stay out of the site
+    output_dir: public
+
+  - name: clipbox
+    github:
+      repo: KMayne/clipbox
+      branch: main
+      deploy_on_push: true
+    build_command: pnpm run build
+    output_dir: dist
+    envs:
+      - key: BASE_PATH
+        value: /clipbox/
+        scope: BUILD_TIME
+
+  - name: moon-sim
+    github:
+      repo: KMayne/moon-sim
+      branch: main
+      deploy_on_push: true
+    build_command: npm run build
+    output_dir: dist
+    envs:
+      - key: BASE_PATH
+        value: /moon-sim/
+        scope: BUILD_TIME
+
+# The /clipbox and /moon-sim prefixes are stripped before reaching each component,
+# which is why each app is built with a matching Vite base (BASE_PATH).
+ingress:
+  rules:
+    - match: { path: { prefix: /clipbox } }
+      component: { name: clipbox }
+    - match: { path: { prefix: /moon-sim } }
+      component: { name: moon-sim }
+    - match: { path: { prefix: / } }
+      component: { name: website }
