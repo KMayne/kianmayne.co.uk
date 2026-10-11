@@ -19,8 +19,8 @@ static_sites:
       repo: KMayne/kianmayne.co.uk
       branch: main
       deploy_on_push: true
-    # Only public/ is served; .do/ and scripts/ stay out of the site
-    output_dir: public
+    # Builds and serves only public/, so .do/ and scripts/ stay out of the site
+    source_dir: public
 
   - name: clipbox
     github:

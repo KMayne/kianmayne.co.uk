@@ -16,7 +16,7 @@ Each app is a separate static-site component that builds from its own repo and r
 
 ## Done (this branch)
 
-- **Site moved into `public/`.** DO serves only that folder (`output_dir: public`), so `.do/`, `scripts/` and this file aren't published.
+- **Site moved into `public/`.** DO builds and serves only that folder (`source_dir: public`; the html buildpack needs `index.html` at the top of the source dir, so `output_dir` alone fails), so `.do/`, `scripts/` and this file aren't published.
 - **Homepage**
   - Smaller avatar and titles, and a JetBrains Mono body font.
   - A left-aligned "Projects" section with a screenshot card for each app. The cards open in a new tab.
