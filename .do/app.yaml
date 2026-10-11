@@ -39,7 +39,7 @@ static_sites:
       repo: KMayne/moon-sim
       branch: main
       deploy_on_push: true
-    build_command: npm run build
+    build_command: pnpm run build
     output_dir: dist
     envs:
       - key: BASE_PATH
