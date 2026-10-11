@@ -33,9 +33,10 @@ These aren't on this branch. They're tracked here because the deploy depends on 
   - `base: process.env.BASE_PATH` in `vite.config.ts`.
   - The service worker and `modules-manifest.json` resolve relative to the base.
   - Verified that the SW registers with scope `/clipbox/` and works offline.
-- Credit on `main` (`09feb2e`): a faint "KianMayne.co.uk ↗" at the bottom of the Pastes pane, opening in a new tab. Under `BASE_PATH` it links to `/`. It always renders.
-- Nord colour scheme and a scheme switcher in Settings are on **`feat/theme-switcher`** (`7c8d378`), not merged. We're deploying `main` as it is, with Gruvbox.
-- `main` is pushed to GitHub.
+- Credit at the bottom of the Pastes pane: "KianMayne.co.uk ↗" (links to `/` under `BASE_PATH`) and a GitHub "Source" link, both opening in a new tab, at 4.5:1 contrast or better in every scheme.
+- Colour schemes are merged: Nord is the default, with a switcher in Settings → Appearance.
+- `"engines": { "node": ">=24" }` is declared (`9462b33`); a clean clone builds on Node 24 with `BASE_PATH=/clipbox/`.
+- `main` is pushed to GitHub, and each push redeploys `/clipbox/`. Keep unfinished work off `main`.
 
 **moon-sim** (`~/Repos/moon-sim`)
 - Already supported `BASE_PATH`, so no subpath changes were needed.
