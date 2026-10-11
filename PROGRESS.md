@@ -34,34 +34,32 @@ These aren't on this branch. They're tracked here because the deploy depends on 
   - The service worker and `modules-manifest.json` resolve relative to the base.
   - Verified that the SW registers with scope `/clipbox/` and works offline.
 - Credit on `main` (`09feb2e`): a faint "KianMayne.co.uk ↗" at the bottom of the Pastes pane, opening in a new tab. Under `BASE_PATH` it links to `/`. It always renders.
-- Nord colour scheme and a scheme switcher in Settings are on **`feat/theme-switcher`** (`7c8d378`), **not merged yet**. That branch was cut before the credit commits, and `main` still uses Gruvbox. Merge it if the deployed app should be Nord.
-- ⚠️ **Nothing is pushed to GitHub yet.** Local `main` is well ahead of `origin/main`, so push before deploying.
+- Nord colour scheme and a scheme switcher in Settings are on **`feat/theme-switcher`** (`7c8d378`), not merged. We're deploying `main` as it is, with Gruvbox.
+- `main` is pushed to GitHub.
 
 **moon-sim** (`~/Repos/moon-sim`)
 - Already supported `BASE_PATH`, so no subpath changes were needed.
-- "by Kian Mayne" credit committed in `450b795`, as a footer at the bottom of the sidebar.
+- Credit in a footer at the bottom of the sidebar (`450b795`); `0ff872a` makes it a "KianMayne.co.uk" link that opens in a new tab, with an arrow icon.
 - Small-viewport fix committed in `b7b19d8`: the opening shot no longer throws at 640×400.
-- ⚠️ **No git remote is configured.** Create `KMayne/moon-sim` on GitHub and push `main` before DO can build it.
-- ⚠️ `.github/workflows/deploy.yml` (GitHub Pages) was restored. Delete it once you've committed to DigitalOcean; that change was left for you to confirm.
-- Its credit only renders when `BASE_URL !== '/'`, whereas clipbox's always renders. The wording differs too ("by Kian Mayne" vs "KianMayne.co.uk ↗"). Decide whether to make them match.
+- Remote `KMayne/moon-sim` is set up and `main` is pushed.
+- The GitHub Pages workflow has been removed.
 
 ## Next steps
 
-1. **Push the app repos:** clipbox `main` (merge `feat/theme-switcher` first if you want Nord); moon-sim needs a GitHub repo and a remote first.
-2. **Fill in the DO spec.** `name: kianmayne-co-uk` and `region: lon` in `.do/app.yaml` are guesses. Copy the real values from the existing app (Settings → App Spec, or `doctl apps spec get <id>`).
-3. **Grant the DigitalOcean GitHub app access** to `clipbox` and `moon-sim`.
-4. **Check the cost.** Make sure the Starter tier covers three static-site components in one app.
-5. **Apply the spec before (or together with) merging this branch to `main`.** The live app currently serves the repo root, so merging the move into `public/` first would break the homepage.
+1. **Fill in the DO spec.** `name: kianmayne-co-uk` and `region: lon` in `.do/app.yaml` are guesses. Copy the real values from the existing app (Settings → App Spec, or `doctl apps spec get <id>`).
+2. **Grant the DigitalOcean GitHub app access** to `clipbox` and `moon-sim`.
+3. **Check the cost.** Make sure the Starter tier covers three static-site components in one app.
+4. **Apply the spec before (or together with) merging this branch to `main`.** The live app currently serves the repo root, so merging the move into `public/` first would break the homepage.
    ```sh
    doctl apps update <app-id> --spec .do/app.yaml   # or paste it into the dashboard
    ```
-6. **If clipbox's build fails on Node,** add `"engines": { "node": ">=24" }` to its `package.json` (CI uses 24). Moon-sim declares `>=26`.
-7. **Verify the live site:**
+5. **If clipbox's build fails on Node,** add `"engines": { "node": ">=24" }` to its `package.json` (CI uses 24). Moon-sim declares `>=26`.
+6. **Verify the live site:**
    - `/`, `/clipbox/`, `/moon-sim/` and `/clipbox` (no slash) load with no 404s.
    - `/.do/app.yaml` returns 404.
    - The clipbox SW scope is `/clipbox/`.
    - A push to one repo redeploys only its component.
-8. **Retake the screenshots** once both credits are live. Optionally drop moon-sim's viewport to 640×400 in `scripts/screenshots/screenshots.mjs`, now that `b7b19d8` makes that size work.
+7. **Retake the screenshots** once both credits are live. Optionally drop moon-sim's viewport to 640×400 in `scripts/screenshots/screenshots.mjs`, now that `b7b19d8` makes that size work.
 
 ## Local preview (copies the DO routing)
 
