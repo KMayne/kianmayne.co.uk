@@ -33,9 +33,9 @@ These aren't on this branch. They're tracked here because the deploy depends on 
   - `base: process.env.BASE_PATH` in `vite.config.ts`.
   - The service worker and `modules-manifest.json` resolve relative to the base.
   - Verified that the SW registers with scope `/clipbox/` and works offline.
-- "by Kian Mayne" credit committed in `a535ba1`. It now sits in the Pastes pane and always renders: under a subpath it links to `/`, and at the root to `https://kianmayne.co.uk/`.
-- ⚠️ Local `main` is **32 commits ahead of `origin/main`**, so push before deploying.
-- A colour-scheme switcher was in progress on `feat/theme-switcher`.
+- Credit on `main` (`09feb2e`): a faint "KianMayne.co.uk ↗" at the bottom of the Pastes pane, opening in a new tab. Under `BASE_PATH` it links to `/`. It always renders.
+- Nord colour scheme and a scheme switcher in Settings are on **`feat/theme-switcher`** (`7c8d378`), **not merged yet**. That branch was cut before the credit commits, and `main` still uses Gruvbox. Merge it if the deployed app should be Nord.
+- ⚠️ **Nothing is pushed to GitHub yet.** Local `main` is well ahead of `origin/main`, so push before deploying.
 
 **moon-sim** (`~/Repos/moon-sim`)
 - Already supported `BASE_PATH`, so no subpath changes were needed.
@@ -43,11 +43,11 @@ These aren't on this branch. They're tracked here because the deploy depends on 
 - Small-viewport fix committed in `b7b19d8`: the opening shot no longer throws at 640×400.
 - ⚠️ **No git remote is configured.** Create `KMayne/moon-sim` on GitHub and push `main` before DO can build it.
 - ⚠️ `.github/workflows/deploy.yml` (GitHub Pages) was restored. Delete it once you've committed to DigitalOcean; that change was left for you to confirm.
-- Its credit only renders when `BASE_URL !== '/'`, whereas clipbox's always renders. Decide whether to make them match.
+- Its credit only renders when `BASE_URL !== '/'`, whereas clipbox's always renders. The wording differs too ("by Kian Mayne" vs "KianMayne.co.uk ↗"). Decide whether to make them match.
 
 ## Next steps
 
-1. **Push the app repos:** clipbox `main`; moon-sim needs a GitHub repo and a remote first.
+1. **Push the app repos:** clipbox `main` (merge `feat/theme-switcher` first if you want Nord); moon-sim needs a GitHub repo and a remote first.
 2. **Fill in the DO spec.** `name: kianmayne-co-uk` and `region: lon` in `.do/app.yaml` are guesses. Copy the real values from the existing app (Settings → App Spec, or `doctl apps spec get <id>`).
 3. **Grant the DigitalOcean GitHub app access** to `clipbox` and `moon-sim`.
 4. **Check the cost.** Make sure the Starter tier covers three static-site components in one app.
