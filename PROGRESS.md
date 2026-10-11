@@ -48,19 +48,16 @@ These aren't on this branch. They're tracked here because the deploy depends on 
 ## Next steps
 
 1. **~~Fill in the DO spec.~~** Done 2026-10-11: matches the live app (`website`, `www` primary with the apex as an alias, and the existing `kianmayne-co-uk` component name kept so DO doesn't recreate it). `doctl apps spec validate` passes. Clipbox now declares `engines.node >=24` and builds cleanly on Node 24 from a fresh clone.
-2. **Grant the DigitalOcean GitHub app access** to `clipbox` and `moon-sim`.
-3. **Check the cost.** Make sure the Starter tier covers three static-site components in one app.
-4. **Apply the spec before (or together with) merging this branch to `main`.** The live app currently serves the repo root, so merging the move into `public/` first would break the homepage.
+2. **~~Deploy.~~** Done 2026-10-11. DO has GitHub access to both app repos, the spec is applied, and deployment `eadadbef` is active. Fixes on the way:
+   - The homepage uses `source_dir: public`, because `output_dir` alone left the html buildpack with no `index.html` to detect.
+   - moon-sim uses pnpm only: DO refuses to build a repo with both `package-lock.json` and `pnpm-lock.yaml`.
+   - Checked live: `/`, `www`, `/clipbox/`, `/clipbox` and `/moon-sim/` return 200, `/.do/app.yaml` returns 404, the clipbox SW scope is `/clipbox/`, and a browser load shows no errors or failed requests.
+3. **Re-apply the spec** so moon-sim's live `build_command` reads `pnpm run build` like `.do/app.yaml` (the live one is still `npm run build`, which also works):
    ```sh
-   doctl apps update <app-id> --spec .do/app.yaml   # or paste it into the dashboard
+   doctl apps update 6cbcf2a4-6327-4e74-8c9d-db0d5de68b3d --spec .do/app.yaml
    ```
-5. **If clipbox's build fails on Node,** add `"engines": { "node": ">=24" }` to its `package.json` (CI uses 24). Moon-sim declares `>=26`.
-6. **Verify the live site:**
-   - `/`, `/clipbox/`, `/moon-sim/` and `/clipbox` (no slash) load with no 404s.
-   - `/.do/app.yaml` returns 404.
-   - The clipbox SW scope is `/clipbox/`.
-   - A push to one repo redeploys only its component.
-7. **Retake the screenshots** once both credits are live. Optionally drop moon-sim's viewport to 640×400 in `scripts/screenshots/screenshots.mjs`, now that `b7b19d8` makes that size work.
+4. **Check the cost** in the dashboard: three static-site components in one app, alongside the account's other apps.
+5. **Retake the screenshots** once both credits are live. Optionally drop moon-sim's viewport to 640×400 in `scripts/screenshots/screenshots.mjs`, now that `b7b19d8` makes that size work.
 
 ## Local preview (copies the DO routing)
 
