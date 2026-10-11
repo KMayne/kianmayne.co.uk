@@ -46,7 +46,7 @@ These aren't on this branch. They're tracked here because the deploy depends on 
 
 ## Next steps
 
-1. **Fill in the DO spec.** `name: kianmayne-co-uk` and `region: lon` in `.do/app.yaml` are guesses. Copy the real values from the existing app (Settings → App Spec, or `doctl apps spec get <id>`).
+1. **~~Fill in the DO spec.~~** Done 2026-10-11: matches the live app (`website`, `www` primary with the apex as an alias, and the existing `kianmayne-co-uk` component name kept so DO doesn't recreate it). `doctl apps spec validate` passes. Clipbox now declares `engines.node >=24` and builds cleanly on Node 24 from a fresh clone.
 2. **Grant the DigitalOcean GitHub app access** to `clipbox` and `moon-sim`.
 3. **Check the cost.** Make sure the Starter tier covers three static-site components in one app.
 4. **Apply the spec before (or together with) merging this branch to `main`.** The live app currently serves the repo root, so merging the move into `public/` first would break the homepage.

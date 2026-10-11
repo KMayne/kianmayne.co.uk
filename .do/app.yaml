@@ -2,14 +2,19 @@
 #   doctl apps update <app-id> --spec .do/app.yaml
 # or paste into Settings → App Spec in the dashboard.
 # Each project builds from its own repo and redeploys on push to main.
-name: kianmayne-co-uk
+name: website
 region: lon
 domains:
-  - domain: kianmayne.co.uk
+  - domain: www.kianmayne.co.uk
     type: PRIMARY
+  - domain: kianmayne.co.uk
+    type: ALIAS
+    zone: kianmayne.co.uk
 
 static_sites:
-  - name: website
+  # Keeps the live component's name; renaming it would make DO recreate it
+  - name: kianmayne-co-uk
+    environment_slug: html
     github:
       repo: KMayne/kianmayne.co.uk
       branch: main
@@ -50,4 +55,4 @@ ingress:
     - match: { path: { prefix: /moon-sim } }
       component: { name: moon-sim }
     - match: { path: { prefix: / } }
-      component: { name: website }
+      component: { name: kianmayne-co-uk }
