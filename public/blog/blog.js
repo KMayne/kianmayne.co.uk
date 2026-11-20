@@ -5,10 +5,6 @@ const CONFIG = {
   // Public Tailscale Funnel URLs of the services on the home cluster (see services/*/README.md)
   pollApi: 'https://poll.YOUR-TAILNET.ts.net',
   commentsHost: 'https://comments.YOUR-TAILNET.ts.net',
-  commentsSite: 'kianmayne',
-  // Comment threads are keyed by this origin + the page path, so www, the apex and
-  // local previews all share one thread per post.
-  canonicalOrigin: 'https://www.kianmayne.co.uk',
 };
 
 // Local preview: talk to services running on this machine instead
@@ -117,31 +113,32 @@ if (location.hostname === 'localhost') {
     .catch(() => { status.textContent = "The poll can't be reached right now. Try again later!"; });
 })();
 
-// Comments (Remark42): <section class="comments"><h2>…</h2><div id="remark42"></div></section>
+// Comments (Isso): <section class="comments"><h2>…</h2><p class="note">…</p><section id="isso-thread"></section></section>
 // Nothing is requested from the comments server until the reader scrolls near them.
+// Threads are keyed by the page path, so www, the apex and local previews share one thread.
 (() => {
-  const mount = document.getElementById('remark42');
+  const mount = document.getElementById('isso-thread');
   if (!mount) return;
   const note = mount.parentElement.querySelector('.note');
+  mount.dataset.title = document.title.replace(/ · Kian Mayne$/, '');
 
   function load() {
-    window.remark_config = {
-      host: CONFIG.commentsHost,
-      site_id: CONFIG.commentsSite,
-      url: CONFIG.canonicalOrigin + location.pathname,
-      page_title: document.title,
-      theme: 'dark',
-      locale: 'en',
-      show_email_subscription: false,
-      no_footer: true,
-    };
     const script = document.createElement('script');
-    script.type = 'module';
-    script.src = `${CONFIG.commentsHost}/web/embed.mjs`;
+    script.src = `${CONFIG.commentsHost}/js/embed.min.js`;
+    Object.assign(script.dataset, {
+      isso: `${CONFIG.commentsHost}/`,
+      issoLang: 'en',
+      issoCss: 'true',
+      issoAvatar: 'true',
+      issoAvatarBg: '#303134',
+      issoVote: 'true',
+      issoReplyNotificationsDefaultEnabled: 'false',
+      issoRequireAuthor: 'false',
+    });
     script.onerror = () => {
       if (note) note.textContent = "Comments can't be reached right now. Try again later!";
     };
-    document.head.append(script);
+    document.body.append(script);
   }
 
   if (!('IntersectionObserver' in window)) return load();

@@ -276,6 +276,46 @@ details.under-the-hood[open] > summary {
   margin: 12px 0 0;
 }
 
+/* Comments (Isso): its stylesheet is built on these variables; this makes it dark */
+#isso-thread {
+  --isso-primary-text-color: var(--fg);
+  --isso-secondary-text-color: var(--muted);
+  --isso-border: 1px solid var(--line);
+  --isso-box-shadow-color: transparent;
+  --isso-hover-color: var(--fg);
+  --isso-link-hover-color: var(--fg);
+  --isso-link-text-shadow-color: transparent;
+  --isso-input-background-color: var(--surface);
+  --isso-input-outline-color: var(--accent);
+  --isso-button-background-color: var(--surface);
+  --isso-button-border: 1px solid var(--line);
+  --isso-button-hover-background-color: #3c4043;
+  --isso-button-active-background-color: #5f6368;
+  --isso-preview-border-color: var(--line);
+  --isso-preview-box-shadow-color: transparent;
+  --isso-preview-background: var(--surface);
+  --isso-pre-color: var(--fg);
+  --isso-pre-background-color: #303134;
+  --isso-pre-border-color: var(--line);
+  --isso-comment-divider-color: var(--line);
+  --isso-page-author-suffix-color: var(--accent);
+  --isso-target-fade-background-color: var(--accent-soft);
+  margin-top: 16px;
+}
+
+#isso-thread input,
+#isso-thread textarea,
+#isso-thread .isso-textarea {
+  color: var(--fg);
+}
+
+#isso-thread input[type="submit"],
+#isso-thread .isso-post-action > input {
+  color: var(--fg);
+  font-family: var(--mono);
+  cursor: pointer;
+}
+
 /* Footer */
 footer {
   padding: 32px 0 48px;
