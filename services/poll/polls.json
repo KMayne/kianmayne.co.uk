@@ -1,0 +1,23 @@
+{
+  "next-writeup": {
+    "question": "What should I write up next?",
+    "options": [
+      { "id": "sudo-passkey", "label": "sudo-passkey", "hint": "Approving an AI agent's sudo commands with a passkey" },
+      { "id": "k8s", "label": "My home Kubernetes cluster", "hint": "The setup everything else runs on" },
+      { "id": "moon-sim", "label": "Moon Sim", "hint": "A 3D Earth, Moon and Sun simulator" },
+      { "id": "henry", "label": "Henry", "hint": "Home voice assistant: speakers, intercom, wake word" },
+      { "id": "run-or-raise", "label": "Run-or-raise for KDE Plasma", "hint": "One key to open or jump to an app" },
+      { "id": "chezmoi", "label": "Porting my config to chezmoi", "hint": "Dotfiles across machines" },
+      { "id": "all-hands", "label": "My all-hands setup", "hint": "" },
+      { "id": "hestie", "label": "Hestie", "hint": "My local-first household app" },
+      { "id": "hestie-assets", "label": "Hestie: tracking everything we own", "hint": "" },
+      { "id": "hestie-meals", "label": "Hestie: meal planning, recipes and shopping", "hint": "" },
+      { "id": "led-totem", "label": "Boomtown LED totem", "hint": "A festival light-up totem" },
+      { "id": "meshtastic", "label": "Meshtastic", "hint": "Off-grid mesh radio messaging" },
+      { "id": "garden", "label": "The garden", "hint": "Yes, including the potatoes" },
+      { "id": "catan", "label": "3D-printed Catan", "hint": "" },
+      { "id": "faces", "label": "3D-printed faces", "hint": "" },
+      { "id": "pub-crawl", "label": "Pub crawl tool", "hint": "" }
+    ]
+  }
+}

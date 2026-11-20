@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- DRAFT: remove this robots tag when the post is ready to publish -->
+  <meta name="robots" content="noindex">
+  <title>Clipbox · Kian Mayne</title>
+  <!-- TODO(Kian): one-sentence summary, shown in search results and link previews -->
+  <meta name="description" content="">
+  <meta property="og:title" content="Clipbox">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://www.kianmayne.co.uk/images/clipbox.jpg">
+  <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #202124;
+      --fg: #e8eaed;
+      --muted: #bdc1c6;
+      --line: #5f6368;
+      --accent: #8ab4f8;
+      --todo: #fdd663;
+    }
+
+    html {
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      padding: 0 16px;
+      color: var(--fg);
+      font: 18px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+
+    main,
+    .site-nav,
+    footer {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    .site-nav,
+    .meta,
+    code,
+    .poll button {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .site-nav {
+      padding: 24px 0;
+      font-size: 0.85em;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .site-nav a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    .site-nav a:hover,
+    .site-nav a:focus-visible {
+      color: var(--fg);
+    }
+
+    h1 {
+      font-size: 2em;
+      line-height: 1.2;
+      margin: 24px 0 8px;
+    }
+
+    h2 {
+      font-size: 1.25em;
+      margin: 48px 0 12px;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.8em;
+      margin: 0 0 24px;
+    }
+
+    figure {
+      margin: 24px 0;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+    }
+
+    figcaption {
+      color: var(--muted);
+      font-size: 0.85em;
+      margin-top: 8px;
+    }
+
+    code {
+      font-size: 0.85em;
+      background: #303134;
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+
+    /* Writing prompts for the draft. Delete each one as you replace it with your text. */
+    .todo {
+      border: 2px dashed var(--todo);
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: var(--todo);
+      font-size: 0.85em;
+    }
+
+    .todo::before {
+      content: "✍ Your words: ";
+      font-weight: 700;
+    }
+
+    .cta {
+      display: inline-block;
+      margin: 8px 0;
+      padding: 10px 20px;
+      border: 2px solid var(--fg);
+      border-radius: 8px;
+      color: var(--fg);
+      font-family: 'JetBrains Mono', monospace;
+      text-decoration: none;
+    }
+
+    .cta:hover,
+    .cta:focus-visible {
+      background: var(--fg);
+      color: var(--bg);
+    }
+
+    /* Poll */
+    .poll {
+      margin: 48px 0;
+      padding: 8px 24px 24px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .poll ol {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .poll button {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      padding: 10px 14px;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--fg);
+      font-size: 0.8em;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .poll button:hover:not(:disabled),
+    .poll button:focus-visible {
+      border-color: var(--fg);
+    }
+
+    .poll button:disabled {
+      cursor: default;
+    }
+
+    .poll button[aria-pressed="true"] {
+      border-color: var(--accent);
+    }
+
+    .poll .bar {
+      position: absolute;
+      inset: 0 auto 0 0;
+      background: rgba(138, 180, 248, 0.16);
+      transition: width 0.4s ease;
+      pointer-events: none;
+    }
+
+    .poll .label,
+    .poll .count {
+      position: relative;
+    }
+
+    .poll .hint {
+      display: block;
+      color: var(--muted);
+      font-family: system-ui, sans-serif;
+      font-size: 0.95em;
+    }
+
+    .poll .count {
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .poll .status {
+      color: var(--muted);
+      font-size: 0.85em;
+      min-height: 1.5em;
+      margin: 12px 0 0;
+    }
+
+    footer {
+      padding: 32px 0 48px;
+      border-top: 1px solid var(--line);
+      margin-top: 48px;
+      color: var(--muted);
+      font-size: 0.85em;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        font-size: 17px;
+      }
+
+      h1 {
+        font-size: 1.6em;
+      }
+
+      .poll {
+        padding: 4px 16px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="site-nav"><a href="/">← kianmayne.co.uk</a></nav>
+
+  <main>
+    <article>
+      <!-- TODO(Kian): the title. Something better than just "Clipbox" -->
+      <h1>Clipbox</h1>
+      <!-- TODO(Kian): set the date when you publish -->
+      <p class="meta">Building in public · <time datetime="2026-11">November 2026</time></p>
+
+      <p class="todo">The hook. What is Clipbox, in a sentence or two, and why should someone keep reading? (Notes: "Lead with privacy: free conversions, all local, nothing uploaded.")</p>
+
+      <figure>
+        <img src="/images/clipbox.jpg" alt="Clipbox showing a pasted JSON object as a collapsible tree" width="1280" height="800">
+        <!-- TODO(Kian): your caption -->
+        <figcaption></figcaption>
+      </figure>
+
+      <p><a class="cta" href="/clipbox/" target="_blank">Try Clipbox ↗</a></p>
+
+      <!-- TODO(Kian): every heading below is a suggestion; rename, reorder or delete freely -->
+      <h2>Why I built it</h2>
+      <p class="todo">The itch. The moment you last pasted something into a sketchy "free online converter" and thought "where is my file going?"</p>
+
+      <h2>Nothing leaves your browser</h2>
+      <p class="todo">The privacy pitch, and how readers can check it for themselves rather than taking your word for it (DevTools Network tab, then airplane mode).</p>
+      <!--
+        Slot for the proof: a screenshot or short clip of the Network tab while a big file converts.
+        Drop the file in public/images/ and uncomment:
+      <figure>
+        <img src="/images/clipbox-network.png" alt="" width="1280" height="800">
+        <figcaption></figcaption>
+      </figure>
+      -->
+
+      <h2>Things you've probably Googled</h2>
+      <p class="todo">The conversions people search for ("HEIC to JPG", "trim an MP3", "JSON to CSV"…), each one done in Clipbox without uploading. The fact sheet has a list to pick from.</p>
+      <!--
+        Optional list format, if you want one:
+      <ul>
+        <li><strong>HEIC → JPG</strong>: …</li>
+      </ul>
+      -->
+
+      <h2>Under the hood</h2>
+      <p class="todo">Optional, for the curious: how a browser tab can do this (WebAssembly, WebCodecs, a service worker for offline). Keep it short or link out.</p>
+
+      <h2>What's next</h2>
+      <p class="todo">Where Clipbox goes from here, and how readers can tell you what they want (GitHub issues?).</p>
+
+      <p><a class="cta" href="/clipbox/" target="_blank">Try Clipbox ↗</a> <a href="https://github.com/KMayne/clipbox">Source on GitHub</a></p>
+    </article>
+
+    <!-- Point data-api at the Funnel URL once the poll service is deployed (see services/poll/README.md) -->
+    <section class="poll" data-api="https://poll.YOUR-TAILNET.ts.net" data-poll="next-writeup" aria-labelledby="poll-title">
+      <h2 id="poll-title">What should I write up next?</h2>
+      <p class="todo">A line inviting readers to vote, and that it's one vote each, changeable, no tracking.</p>
+      <ol></ol>
+      <p class="status" role="status" aria-live="polite">Loading the poll…</p>
+    </section>
+  </main>
+
+  <footer>
+    <a href="/">Kian Mayne</a> · <a href="https://github.com/KMayne">GitHub</a> · <a href="https://www.linkedin.com/in/kianmayne/">LinkedIn</a>
+  </footer>
+
+  <script>
+    (() => {
+      const root = document.querySelector('.poll');
+      const list = root.querySelector('ol');
+      const status = root.querySelector('.status');
+      const base = `${root.dataset.api.replace(/\/$/, '')}/polls/${root.dataset.poll}`;
+
+      // A random id kept in this browser, so a reader can change their vote. No cookies.
+      const KEY = 'poll-voter';
+      let voter = null;
+      try {
+        voter = localStorage.getItem(KEY);
+        if (!/^[0-9a-f]{32}$/.test(voter || '')) {
+          voter = [...crypto.getRandomValues(new Uint8Array(16))]
+            .map(b => b.toString(16).padStart(2, '0')).join('');
+          localStorage.setItem(KEY, voter);
+        }
+      } catch {
+        voter = [...crypto.getRandomValues(new Uint8Array(16))]
+          .map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+
+      let busy = false;
+
+      function render(data) {
+        const voted = data.yourVote != null;
+        list.replaceChildren(...data.options.map(o => {
+          const li = document.createElement('li');
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.setAttribute('aria-pressed', String(o.id === data.yourVote));
+          btn.addEventListener('click', () => vote(o.id));
+
+          const pct = data.total ? Math.round(100 * o.votes / data.total) : 0;
+          const bar = document.createElement('span');
+          bar.className = 'bar';
+          bar.style.width = voted ? `${pct}%` : '0';
+
+          const label = document.createElement('span');
+          label.className = 'label';
+          label.textContent = o.label;
+          if (o.hint) {
+            const hint = document.createElement('span');
+            hint.className = 'hint';
+            hint.textContent = o.hint;
+            label.append(hint);
+          }
+
+          const count = document.createElement('span');
+          count.className = 'count';
+          count.textContent = voted ? `${pct}%` : '';
+
+          btn.append(bar, label, count);
+          li.append(btn);
+          return li;
+        }));
+        status.textContent = voted
+          ? `${data.total} vote${data.total === 1 ? '' : 's'} so far. Changed your mind? Pick another.`
+          : 'Pick one to vote and see the results.';
+      }
+
+      async function request(url, init) {
+        const res = await fetch(url, init);
+        const body = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(body.error || `HTTP ${res.status}`);
+        return body;
+      }
+
+      async function load() {
+        try {
+          render(await request(`${base}?voter=${voter}`));
+        } catch {
+          status.textContent = "The poll can't be reached right now. Try again later!";
+        }
+      }
+
+      async function vote(option) {
+        if (busy) return;
+        busy = true;
+        status.textContent = 'Voting…';
+        try {
+          render(await request(`${base}/vote`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ voter, option }),
+          }));
+        } catch (e) {
+          status.textContent = `That didn't work: ${e.message}`;
+        } finally {
+          busy = false;
+        }
+      }
+
+      load();
+    })();
+  </script>
+</body>
+
+</html>
