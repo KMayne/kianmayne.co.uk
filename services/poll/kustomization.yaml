@@ -1,0 +1,14 @@
+# Apply with:  kubectl apply -k services/poll
+namespace: poll
+
+resources:
+  - k8s/namespace.yaml
+  - k8s/poll.yaml
+
+# The script and the poll definitions are mounted from a ConfigMap, so the stock
+# python image runs them as-is. Editing either file and re-applying rolls the pod.
+configMapGenerator:
+  - name: poll-app
+    files:
+      - server.py
+      - polls.json

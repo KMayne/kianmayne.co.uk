@@ -1,0 +1,13 @@
+# Apply with:  kubectl apply -k services/artalk
+# First create the "artalk" secret it reads (see README.md).
+namespace: comments
+
+resources:
+  - k8s/namespace.yaml
+  - k8s/artalk.yaml
+
+# Editing artalk.yml and re-applying rolls the pod.
+configMapGenerator:
+  - name: artalk-config
+    files:
+      - artalk.yml

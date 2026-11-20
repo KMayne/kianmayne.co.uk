@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: poll-data
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 64Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poll
+spec:
+  replicas: 1 # SQLite: one writer
+  strategy:
+    type: Recreate # don't run two pods on the same volume during a rollout
+  selector:
+    matchLabels: { app: poll }
+  template:
+    metadata:
+      labels: { app: poll }
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65534
+        runAsGroup: 65534
+        fsGroup: 65534
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: poll
+          image: python:3.13-alpine
+          command: ["python", "-u", "/app/server.py"]
+          env:
+            - { name: POLLS_FILE, value: /app/polls.json }
+            - { name: DB_PATH, value: /data/poll.db }
+            - name: ALLOWED_ORIGINS
+              value: https://www.kianmayne.co.uk,https://kianmayne.co.uk,http://localhost:8080
+          ports:
+            - { name: http, containerPort: 8080 }
+          readinessProbe:
+            httpGet: { path: /healthz, port: http }
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 30
+          resources:
+            requests: { cpu: 10m, memory: 32Mi }
+            limits: { memory: 96Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ALL] }
+          volumeMounts:
+            - { name: app, mountPath: /app, readOnly: true }
+            - { name: data, mountPath: /data }
+      volumes:
+        - name: app
+          configMap: { name: poll-app }
+        - name: data
+          persistentVolumeClaim: { claimName: poll-data }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: poll
+spec:
+  selector: { app: poll }
+  ports:
+    - { name: http, port: 80, targetPort: http }
+---
+# Public via Tailscale Funnel, through the Tailscale Kubernetes operator.
+# Serves https://poll.<your-tailnet>.ts.net (the host is the tls.hosts entry).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: poll
+  annotations:
+    tailscale.com/funnel: "true"
+spec:
+  ingressClassName: tailscale
+  defaultBackend:
+    service:
+      name: poll
+      port: { name: http }
+  tls:
+    - hosts: [poll]

@@ -1,0 +1,329 @@
+/* Shared styles for every blog post. Posts link this; don't copy it into a page. */
+
+:root {
+  --bg: #202124;
+  --surface: #292a2d;
+  --fg: #e8eaed;
+  --muted: #bdc1c6;
+  --line: #5f6368;
+  --accent: #8ab4f8;
+  --accent-soft: rgba(138, 180, 248, 0.16);
+  --todo: #fdd663;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+html {
+  background: var(--bg);
+}
+
+body {
+  margin: 0;
+  padding: 0 16px;
+  color: var(--fg);
+  background: var(--bg);
+  font: 18px/1.65 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+main,
+.site-nav,
+footer {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+.site-nav,
+.meta,
+code,
+.cta,
+.tldr dt,
+details > summary,
+.poll button {
+  font-family: var(--mono);
+}
+
+a {
+  color: var(--accent);
+}
+
+/* Header */
+.site-nav {
+  padding: 24px 0;
+  font-size: 0.85em;
+}
+
+.site-nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--fg);
+}
+
+h1 {
+  font-size: 2em;
+  line-height: 1.2;
+  margin: 24px 0 8px;
+}
+
+h2 {
+  font-size: 1.25em;
+  margin: 48px 0 12px;
+}
+
+h3 {
+  font-size: 1em;
+  margin: 32px 0 8px;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: 0.8em;
+  margin: 0 0 24px;
+}
+
+/* TL;DR box at the top of every post */
+.tldr {
+  margin: 24px 0;
+  padding: 16px 20px;
+  background: var(--surface);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+}
+
+.tldr dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 16px;
+}
+
+.tldr dt {
+  color: var(--muted);
+  font-size: 0.8em;
+  padding-top: 0.2em;
+}
+
+.tldr dd {
+  margin: 0;
+}
+
+.tldr .cta-row {
+  margin: 16px 0 0;
+}
+
+/* Figures and demos */
+figure {
+  margin: 24px 0;
+}
+
+figure img,
+figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+}
+
+figcaption {
+  color: var(--muted);
+  font-size: 0.85em;
+  margin-top: 8px;
+}
+
+code {
+  font-size: 0.85em;
+  background: #303134;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+/* Buttons */
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 20px;
+  margin: 24px 0;
+}
+
+.cta {
+  display: inline-block;
+  padding: 10px 20px;
+  border: 2px solid var(--fg);
+  border-radius: 8px;
+  color: var(--fg);
+  text-decoration: none;
+}
+
+.cta:hover,
+.cta:focus-visible {
+  background: var(--fg);
+  color: var(--bg);
+}
+
+/* "Under the hood": collapsed for the curious */
+details.under-the-hood {
+  margin: 48px 0;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  padding: 0 20px;
+}
+
+details.under-the-hood > summary {
+  cursor: pointer;
+  padding: 14px 0;
+  font-size: 0.95em;
+}
+
+details.under-the-hood[open] > summary {
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 8px;
+}
+
+/* Writing prompts in drafts. Delete each as you replace it with your text. */
+.todo {
+  border: 2px dashed var(--todo);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--todo);
+  font-size: 0.85em;
+}
+
+.todo::before {
+  content: "✍ Your words: ";
+  font-weight: 700;
+}
+
+/* Poll */
+.poll,
+.comments {
+  margin: 48px 0;
+  padding: 8px 24px 24px;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+}
+
+.poll ol {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 0;
+  display: grid;
+  gap: 8px;
+}
+
+.poll button {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--line);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--fg);
+  font-size: 0.8em;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.poll button:hover:not(:disabled),
+.poll button:focus-visible {
+  border-color: var(--fg);
+}
+
+.poll button[aria-pressed="true"] {
+  border-color: var(--accent);
+}
+
+.poll .bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--accent-soft);
+  transition: width 0.4s ease;
+  pointer-events: none;
+}
+
+.poll .label,
+.poll .count {
+  position: relative;
+}
+
+.poll .hint {
+  display: block;
+  color: var(--muted);
+  font-family: system-ui, sans-serif;
+  font-size: 0.95em;
+}
+
+.poll .count {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.status,
+.comments .note {
+  color: var(--muted);
+  font-size: 0.85em;
+  min-height: 1.5em;
+  margin: 12px 0 0;
+}
+
+/* Comments (Artalk, in its dark mode): match the page's colours */
+#artalk {
+  --at-color-font: var(--fg);
+  --at-color-deep: var(--fg);
+  --at-color-sub: var(--muted);
+  --at-color-meta: var(--muted);
+  --at-color-border: var(--line);
+  --at-color-bg: transparent;
+  --at-color-bg-transl: rgba(41, 42, 45, 0.9);
+  --at-color-bg-grey: var(--surface);
+  --at-color-main: var(--accent);
+  --at-color-light: var(--accent);
+  margin-top: 16px;
+}
+
+/* Footer */
+footer {
+  padding: 32px 0 48px;
+  border-top: 1px solid var(--line);
+  margin-top: 48px;
+  color: var(--muted);
+  font-size: 0.85em;
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 17px;
+  }
+
+  h1 {
+    font-size: 1.6em;
+  }
+
+  .poll,
+  .comments {
+    padding: 4px 16px 16px;
+  }
+
+  details.under-the-hood {
+    padding: 0 16px;
+  }
+
+  .tldr dl {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+
+  .tldr dd {
+    margin-bottom: 8px;
+  }
+}

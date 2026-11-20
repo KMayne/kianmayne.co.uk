@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--
+  Blog post template. See WRITING.md before starting.
+
+  1. Fill in the brief: drafts/<slug>.md (template in WRITING.md).
+  2. Copy this file to public/blog/<slug>/index.html.
+  3. Replace every TODO and every .todo box with your words.
+  4. Run the "Before publishing" checklist in WRITING.md.
+-->
+<html lang="en-GB">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- DRAFT: remove this robots tag when the post is ready to publish -->
+  <meta name="robots" content="noindex">
+  <!-- TODO: title, also below in og:title and <h1> -->
+  <title>TODO · Kian Mayne</title>
+  <!-- TODO: one sentence for search results and link previews: what the reader gets -->
+  <meta name="description" content="">
+  <meta property="og:title" content="TODO">
+  <meta property="og:type" content="article">
+  <!-- TODO: the hero image, as an absolute URL -->
+  <meta property="og:image" content="https://www.kianmayne.co.uk/images/TODO.jpg">
+  <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/blog/blog.css">
+  <script src="/blog/blog.js" defer></script>
+</head>
+
+<body>
+  <nav class="site-nav"><a href="/">← kianmayne.co.uk</a></nav>
+
+  <main>
+    <article>
+      <h1>TODO</h1>
+      <!-- TODO: the type (Tool, How-to or Build story) and the publish date -->
+      <p class="meta">Building in public · Tool · <time datetime="2026-01-01">1 January 2026</time> · <span data-reading-time></span></p>
+
+      <!-- 1. HOOK: the reader's problem, in their words. Not your project yet. 2–3 sentences. -->
+      <p class="todo">The hook: the reader's problem, in their words.</p>
+
+      <!-- 2. TL;DR: what it is, what they get, where to go. Three short lines. -->
+      <aside class="tldr" aria-label="TL;DR">
+        <dl>
+          <dt>What</dt>
+          <dd class="todo">What it is, in one line.</dd>
+          <dt>You get</dt>
+          <dd class="todo">What the reader gets, from the brief.</dd>
+        </dl>
+        <!-- Tool: Try + Source. How-to: "Jump to the steps" (href="#steps"). Build story: drop the row or link the source. -->
+        <p class="cta-row">
+          <a class="cta" href="TODO" target="_blank">Try it ↗</a>
+          <a href="TODO">Source on GitHub</a>
+        </p>
+      </aside>
+
+      <!-- 3. HERO: the proof from the brief. A clip or GIF beats a screenshot when it moves. -->
+      <figure>
+        <img src="/images/TODO.jpg" alt="TODO" width="1280" height="800">
+        <figcaption></figcaption>
+      </figure>
+
+      <!-- 4. THE ITCH: why you built it. Short, human, the fun bit. -->
+      <h2>TODO: the itch</h2>
+      <p class="todo">Why you built it: the moment it annoyed you enough.</p>
+
+      <!--
+        5. THE MAIN EVENT: most of the post. Pick the shape for the post's type:
+
+        Tool:        "What it does for you": a demo per job the reader already has.
+                     Each one: an h3 naming the job in their words, a figure, a line or two.
+                     Then a CTA row, because this is where they're most convinced.
+        How-to:      id="steps" on the h2, then numbered steps they can follow, with the
+                     commands or config to copy.
+        Build story: the journey in a few beats, and what you'd do differently.
+      -->
+      <h2>TODO: the main event</h2>
+
+      <h3>TODO: a job the reader already has</h3>
+      <figure>
+        <img src="/images/TODO.gif" alt="TODO" width="1280" height="800">
+      </figure>
+      <p class="todo">One or two lines on this demo.</p>
+
+      <p class="cta-row"><a class="cta" href="TODO" target="_blank">Try it ↗</a></p>
+
+      <!-- 6. TRUST / CAVEATS (optional): why they can rely on it, and what it doesn't do. -->
+      <h2>TODO: why you can trust it</h2>
+      <p class="todo">Why it's safe or reliable to use, and its limits (e.g. "Chromium only").</p>
+
+      <!-- 7. UNDER THE HOOD (optional): for the nerds. Collapsed so it doesn't slow anyone down. -->
+      <details class="under-the-hood">
+        <summary>Under the hood</summary>
+        <p class="todo">How it works, for the curious. Short, or link out.</p>
+      </details>
+
+      <!-- 8. WHAT'S NEXT: where it goes, and how readers can shape it. -->
+      <h2>What's next</h2>
+      <p class="todo">What's next for it, and how readers can ask for things.</p>
+
+      <!-- End on the action from the brief -->
+      <p class="cta-row">
+        <a class="cta" href="TODO" target="_blank">Try it ↗</a>
+        <a href="TODO">Source on GitHub</a>
+      </p>
+    </article>
+
+    <!-- 9. POLL: same in every post. Its options are in services/poll/polls.json. -->
+    <section class="poll" data-poll="next-writeup" aria-labelledby="poll-title">
+      <h2 id="poll-title">What should I write up next?</h2>
+      <p>One vote each, and you can change it. No cookies, no tracking.</p>
+      <ol></ol>
+      <p class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <!-- 10. COMMENTS: same in every post (Artalk on the home cluster, loaded on scroll, held for approval). -->
+    <section class="comments" aria-labelledby="comments-title">
+      <h2 id="comments-title">Comments</h2>
+      <p class="note">Questions, bugs, ideas: all welcome. No account needed. Comments live on my own server and appear once I've approved them.</p>
+      <div id="artalk"></div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="/">Kian Mayne</a> · <a href="https://github.com/KMayne">GitHub</a> · <a href="https://www.linkedin.com/in/kianmayne/">LinkedIn</a>
+  </footer>
+</body>
+
+</html>

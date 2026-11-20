@@ -1,0 +1,91 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: artalk-data
+spec:
+  accessModes: [ReadWriteOnce]
+  resources:
+    requests:
+      storage: 512Mi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: artalk
+spec:
+  replicas: 1 # SQLite: one pod
+  strategy:
+    type: Recreate # don't run two pods on the same volume during a rollout
+  selector:
+    matchLabels: { app: artalk }
+  template:
+    metadata:
+      labels: { app: artalk }
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: artalk
+          image: artalk/artalk-go:2.10.1
+          # Run the binary directly: the image's entrypoint would generate a second config in /data
+          command: ["/usr/bin/artalk"]
+          args: ["server", "--config", "/etc/artalk/artalk.yml", "--host", "0.0.0.0", "--port", "23366"]
+          envFrom:
+            # ATK_APP_KEY and the admin user (ATK_ADMIN_USERS_0_*); optionally ATK_EMAIL_* for SMTP
+            - secretRef: { name: artalk }
+          ports:
+            - { name: http, containerPort: 23366 }
+          readinessProbe:
+            httpGet: { path: /api/v2/version, port: http }
+          livenessProbe:
+            httpGet: { path: /api/v2/version, port: http }
+            periodSeconds: 30
+          resources:
+            requests: { cpu: 20m, memory: 48Mi }
+            limits: { memory: 256Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ALL] }
+          volumeMounts:
+            - { name: config, mountPath: /etc/artalk, readOnly: true }
+            - { name: data, mountPath: /data }
+            - { name: tmp, mountPath: /tmp }
+      volumes:
+        - name: config
+          configMap: { name: artalk-config }
+        - name: data
+          persistentVolumeClaim: { claimName: artalk-data }
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: artalk
+spec:
+  selector: { app: artalk }
+  ports:
+    - { name: http, port: 80, targetPort: http }
+---
+# Public via Tailscale Funnel, through the Tailscale Kubernetes operator.
+# Serves https://comments.<your-tailnet>.ts.net (the host is the tls.hosts entry).
+# Funnel sets X-Forwarded-For to the visitor's address, which artalk.yml trusts (http.proxy_header).
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: artalk
+  annotations:
+    tailscale.com/funnel: "true"
+spec:
+  ingressClassName: tailscale
+  defaultBackend:
+    service:
+      name: artalk
+      port: { name: http }
+  tls:
+    - hosts: [comments]

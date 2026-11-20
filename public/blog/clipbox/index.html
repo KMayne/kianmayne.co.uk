@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!-- Brief and notes: drafts/clipbox.md. How posts work: WRITING.md. -->
+<html lang="en-GB">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- DRAFT: remove this robots tag when the post is ready to publish -->
+  <meta name="robots" content="noindex">
+  <!-- TODO(Kian): a better title, also in og:title and <h1> -->
+  <title>Clipbox · Kian Mayne</title>
+  <!-- TODO(Kian): one sentence for search results and link previews -->
+  <meta name="description" content="">
+  <meta property="og:title" content="Clipbox">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="https://www.kianmayne.co.uk/images/clipbox.jpg">
+  <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/blog/blog.css">
+  <script src="/blog/blog.js" defer></script>
+</head>
+
+<body>
+  <nav class="site-nav"><a href="/">← kianmayne.co.uk</a></nav>
+
+  <main>
+    <article>
+      <h1>Clipbox</h1>
+      <!-- TODO(Kian): set the date when you publish -->
+      <p class="meta">Building in public · Tool · <time datetime="2026-11">November 2026</time> · <span data-reading-time></span></p>
+
+      <!-- 1. HOOK -->
+      <p class="todo">The hook: you've Googled "HEIC to JPG" and uploaded your photo to some random site. Where did it go?</p>
+
+      <!-- 2. TL;DR -->
+      <aside class="tldr" aria-label="TL;DR">
+        <dl>
+          <dt>What</dt>
+          <dd class="todo">What Clipbox is, in one line.</dd>
+          <dt>You get</dt>
+          <dd class="todo">Free conversions in one tab; nothing leaves your machine.</dd>
+        </dl>
+        <p class="cta-row">
+          <a class="cta" href="/clipbox/" target="_blank">Try Clipbox ↗</a>
+          <a href="https://github.com/KMayne/clipbox">Source on GitHub</a>
+        </p>
+      </aside>
+
+      <!-- 3. HERO: ideally a clip of pasting something and Clipbox working out what it is -->
+      <figure>
+        <img src="/images/clipbox.jpg" alt="Clipbox showing a pasted JSON object as a collapsible tree" width="1280" height="800">
+        <figcaption></figcaption>
+      </figure>
+
+      <!-- 4. THE ITCH -->
+      <h2>Why I built it</h2>
+      <p class="todo">The itch: the moment that made you build it.</p>
+
+      <!-- 5. THE MAIN EVENT: one demo per job the reader already has. Swap jobs in or out from drafts/clipbox.md. -->
+      <h2>Things you've Googled, done in one tab</h2>
+      <p class="todo">A line setting up the demos.</p>
+
+      <h3>HEIC to JPG</h3>
+      <!-- <figure><img src="/images/clipbox-heic.gif" alt="" width="1280" height="800"></figure> -->
+      <p class="todo">iPhone photos that won't open anywhere else.</p>
+
+      <h3>Trim or crop a video</h3>
+      <!-- <figure><img src="/images/clipbox-trim.gif" alt="" width="1280" height="800"></figure> -->
+      <p class="todo">The trim bar and the draw-a-box crop.</p>
+
+      <h3>JSON to CSV (and back)</h3>
+      <!-- <figure><img src="/images/clipbox-json-csv.gif" alt="" width="1280" height="800"></figure> -->
+      <p class="todo">For the spreadsheet crowd and the developer crowd.</p>
+
+      <h3>Decode a JWT</h3>
+      <!-- <figure><img src="/images/clipbox-jwt.gif" alt="" width="1280" height="800"></figure> -->
+      <p class="todo">Especially for the tokens you really shouldn't paste into a website.</p>
+
+      <h3>Strip the tracking junk from a link</h3>
+      <!-- <figure><img src="/images/clipbox-url.gif" alt="" width="1280" height="800"></figure> -->
+      <p class="todo">utm_source, fbclid and friends, gone before you share it.</p>
+
+      <p class="todo">"…and about 40 more": a quick-fire list or a sentence pointing at the rest.</p>
+
+      <p class="cta-row"><a class="cta" href="/clipbox/" target="_blank">Try Clipbox ↗</a></p>
+
+      <!-- 6. TRUST -->
+      <h2>Nothing leaves your browser</h2>
+      <p class="todo">Why they can trust it, and how to check for themselves: the Network tab, then airplane mode. Mention it's Chromium only.</p>
+      <!-- <figure><img src="/images/clipbox-network.gif" alt="" width="1280" height="800"><figcaption></figcaption></figure> -->
+
+      <!-- 7. UNDER THE HOOD -->
+      <details class="under-the-hood">
+        <summary>Under the hood</summary>
+        <p class="todo">For the curious: WebAssembly builds of jq, 7-Zip, libheif and friends, WebCodecs for video, a service worker for offline.</p>
+      </details>
+
+      <!-- 8. WHAT'S NEXT, ending on the action -->
+      <h2>Bookmark it, install it</h2>
+      <p class="todo">Bookmark or install it as an app, what's coming next, and where to ask for things.</p>
+
+      <p class="cta-row">
+        <a class="cta" href="/clipbox/" target="_blank">Try Clipbox ↗</a>
+        <a href="https://github.com/KMayne/clipbox">Source on GitHub</a>
+      </p>
+    </article>
+
+    <section class="poll" data-poll="next-writeup" aria-labelledby="poll-title">
+      <h2 id="poll-title">What should I write up next?</h2>
+      <p>One vote each, and you can change it. No cookies, no tracking.</p>
+      <ol></ol>
+      <p class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="comments" aria-labelledby="comments-title">
+      <h2 id="comments-title">Comments</h2>
+      <p class="note">Questions, bugs, ideas: all welcome. No account needed. Comments live on my own server and appear once I've approved them.</p>
+      <div id="artalk"></div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="/">Kian Mayne</a> · <a href="https://github.com/KMayne">GitHub</a> · <a href="https://www.linkedin.com/in/kianmayne/">LinkedIn</a>
+  </footer>
+</body>
+
+</html>
