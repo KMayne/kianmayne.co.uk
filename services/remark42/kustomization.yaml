@@ -1,0 +1,7 @@
+# Apply with:  kubectl apply -k services/remark42
+# First create the secret it reads (see README.md).
+namespace: comments
+
+resources:
+  - k8s/namespace.yaml
+  - k8s/remark42.yaml

@@ -1,20 +1,29 @@
-# Clipbox write-up: notes to write from
+# Clipbox brief
+
+Suggested answers to get you going: edit them until they're yours.
+
+- **Type:** Tool
+- **Reader:** someone who's just Googled "HEIC to JPG" (or "JSON to CSV", or "decode JWT") and is
+  about to upload their file to a random converter site.
+- **They get:** a free, bookmarkable tool that does all those conversions in one tab, without
+  uploading anything.
+- **Hook:** "You've Googled 'HEIC to JPG' and uploaded your photo to some random site. Where did it
+  go?"
+- **Proof:** a clip of pasting something and Clipbox instantly working out what it is; then the
+  Network tab staying empty while a video converts.
+- **Action:** try it, then bookmark or install it.
+
+---
+
+# Notes to write from
 
 Raw material for the post at `public/blog/clipbox/index.html`. Nothing here is published (only
 `public/` is served). Facts are from the `KMayne/clipbox` repo as of 19 Nov 2026.
 
-## Your brief (from Hestie, "Write up Clipbox")
+## From Hestie ("Write up Clipbox")
 
 > Lead with privacy: free conversions, all local, nothing uploaded. Show it in DevTools network
 > tab / offline. List the conversions people search for.
-
-Goal of the post: show off what you built, in an accessible, fun way, and leave the reader with
-something valuable.
-
-Possible "something valuable" for the reader, beyond "here's my app":
-- **How to check whether any "free online converter" uploads your file** (Network tab, airplane
-  mode). That's a skill they keep even if they never use Clipbox.
-- A bookmarkable tool that replaces a dozen sketchy converter sites.
 
 ## One-liners (from the README and homepage)
 
@@ -130,16 +139,3 @@ Nerdier
 - A node graph for chaining transformations visually (in the README as "planned").
 - Archives: password-protected zips, nested archives in place, streaming huge files.
 - Image cropping (reusing the video crop overlay).
-
-## Structure the page currently suggests
-
-1. Hook (privacy-first)
-2. Hero screenshot + "Try Clipbox" button
-3. Why I built it
-4. Nothing leaves your browser (+ check-it-yourself, + recording)
-5. Things you've probably Googled
-6. Under the hood (optional)
-7. What's next
-8. Poll: what should I write up next?
-
-All headings are suggestions: rename, reorder or drop them.

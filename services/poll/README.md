@@ -33,8 +33,7 @@ kubectl -n poll get ingress poll   # ADDRESS is the public https://poll.<tailnet
 curl https://poll.<tailnet>.ts.net/healthz
 ```
 
-Put that URL in the post's `data-api` attribute (`public/blog/clipbox/index.html`, the
-`<section class="poll">`).
+Put that URL in `pollApi` at the top of `public/blog/blog.js`.
 
 The PVC uses the cluster's default StorageClass; add `storageClassName` in `k8s/poll.yaml` if you
 want another.
@@ -47,7 +46,7 @@ mkdir -p /tmp/poll && POLLS_FILE=polls.json DB_PATH=/tmp/poll/poll.db \
   ALLOWED_ORIGINS=http://localhost:8080 PORT=8099 python3 server.py
 ```
 
-Then serve `public/` on port 8080 with the post's `data-api` pointed at `http://localhost:8099`.
+With the site served on `localhost:8080`, `blog.js` uses `localhost:8099` automatically.
 
 ## Results
 
