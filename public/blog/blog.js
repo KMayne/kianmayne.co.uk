@@ -113,31 +113,57 @@ if (location.hostname === 'localhost') {
     .catch(() => { status.textContent = "The poll can't be reached right now. Try again later!"; });
 })();
 
-// Comments (Isso): <section class="comments"><h2>…</h2><p class="note">…</p><section id="isso-thread"></section></section>
+// Comments (Artalk): <section class="comments"><h2>…</h2><p class="note">…</p><div id="artalk"></div></section>
 // Nothing is requested from the comments server until the reader scrolls near them.
 // Threads are keyed by the page path, so www, the apex and local previews share one thread.
 (() => {
-  const mount = document.getElementById('isso-thread');
+  const mount = document.getElementById('artalk');
   if (!mount) return;
   const note = mount.parentElement.querySelector('.note');
-  mount.dataset.title = document.title.replace(/ · Kian Mayne$/, '');
+
+  // Avatars are drawn here (an initial on a colour picked from the name) instead of fetched
+  // from Gravatar, which would send a hash of each commenter's email to a third party.
+  function avatar(comment) {
+    const name = (comment.nick || '?').trim();
+    let hash = 0;
+    for (const ch of name) hash = (hash * 31 + ch.codePointAt(0)) >>> 0;
+    const initial = [...name][0]?.toUpperCase() || '?';
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">`
+      + `<rect width="40" height="40" fill="hsl(${hash % 360} 45% 38%)"/>`
+      + `<text x="20" y="26" font-family="system-ui,sans-serif" font-size="18" fill="#fff" text-anchor="middle">`
+      + `${initial.replace(/[<>&"']/g, '')}</text></svg>`;
+    return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+  }
+
+  function failed() {
+    if (note) note.textContent = "Comments can't be reached right now. Try again later!";
+  }
 
   function load() {
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = `${CONFIG.commentsHost}/dist/Artalk.css`;
+    document.head.append(css);
+
     const script = document.createElement('script');
-    script.src = `${CONFIG.commentsHost}/js/embed.min.js`;
-    Object.assign(script.dataset, {
-      isso: `${CONFIG.commentsHost}/`,
-      issoLang: 'en',
-      issoCss: 'true',
-      issoAvatar: 'true',
-      issoAvatarBg: '#303134',
-      issoVote: 'true',
-      issoReplyNotificationsDefaultEnabled: 'false',
-      issoRequireAuthor: 'false',
-    });
-    script.onerror = () => {
-      if (note) note.textContent = "Comments can't be reached right now. Try again later!";
+    script.src = `${CONFIG.commentsHost}/dist/Artalk.js`;
+    script.onload = () => {
+      try {
+        window.Artalk.init({
+          el: mount,
+          server: CONFIG.commentsHost,
+          site: 'Kian Mayne',
+          pageKey: location.pathname,
+          pageTitle: document.title.replace(/ · Kian Mayne$/, ''),
+          locale: 'en',
+          darkMode: true,
+          avatarURLBuilder: avatar,
+        });
+      } catch {
+        failed();
+      }
     };
+    script.onerror = failed;
     document.body.append(script);
   }
 

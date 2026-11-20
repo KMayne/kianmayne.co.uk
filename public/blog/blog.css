@@ -276,44 +276,19 @@ details.under-the-hood[open] > summary {
   margin: 12px 0 0;
 }
 
-/* Comments (Isso): its stylesheet is built on these variables; this makes it dark */
-#isso-thread {
-  --isso-primary-text-color: var(--fg);
-  --isso-secondary-text-color: var(--muted);
-  --isso-border: 1px solid var(--line);
-  --isso-box-shadow-color: transparent;
-  --isso-hover-color: var(--fg);
-  --isso-link-hover-color: var(--fg);
-  --isso-link-text-shadow-color: transparent;
-  --isso-input-background-color: var(--surface);
-  --isso-input-outline-color: var(--accent);
-  --isso-button-background-color: var(--surface);
-  --isso-button-border: 1px solid var(--line);
-  --isso-button-hover-background-color: #3c4043;
-  --isso-button-active-background-color: #5f6368;
-  --isso-preview-border-color: var(--line);
-  --isso-preview-box-shadow-color: transparent;
-  --isso-preview-background: var(--surface);
-  --isso-pre-color: var(--fg);
-  --isso-pre-background-color: #303134;
-  --isso-pre-border-color: var(--line);
-  --isso-comment-divider-color: var(--line);
-  --isso-page-author-suffix-color: var(--accent);
-  --isso-target-fade-background-color: var(--accent-soft);
+/* Comments (Artalk, in its dark mode): match the page's colours */
+#artalk {
+  --at-color-font: var(--fg);
+  --at-color-deep: var(--fg);
+  --at-color-sub: var(--muted);
+  --at-color-meta: var(--muted);
+  --at-color-border: var(--line);
+  --at-color-bg: transparent;
+  --at-color-bg-transl: rgba(41, 42, 45, 0.9);
+  --at-color-bg-grey: var(--surface);
+  --at-color-main: var(--accent);
+  --at-color-light: var(--accent);
   margin-top: 16px;
-}
-
-#isso-thread input,
-#isso-thread textarea,
-#isso-thread .isso-textarea {
-  color: var(--fg);
-}
-
-#isso-thread input[type="submit"],
-#isso-thread .isso-post-action > input {
-  color: var(--fg);
-  font-family: var(--mono);
-  cursor: pointer;
 }
 
 /* Footer */

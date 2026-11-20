@@ -85,5 +85,5 @@ The page
 - `blog.js` fills in the reading time, runs the poll and loads the comments when the reader scrolls
   near them. The URLs of the poll and comments services are at the top of the file.
 - The poll runs on the home cluster: `services/poll/`.
-- Comments are Isso, on the home cluster too: `services/isso/`. New comments are hidden until
+- Comments are Artalk, on the home cluster too: `services/artalk/`. New comments are hidden until
   you approve them.
